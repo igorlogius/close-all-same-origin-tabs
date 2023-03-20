@@ -1,11 +1,12 @@
-Shows the total amount of duplicate tabs and allows to quickly and easily close them
-- Leave the tabs open which have been accessed last.
+Shows the total amount of same origin tabs and allows to quickly and easily close them
+- Leave only the oldest tabs open.
 
 <b>Usage/Features:</b>
 <ul>
-	<li>Show number of duplicates in the toolbar button badge</li>
-	<li>Close all duplicates tabs, leaving the last accesed ones open</li>
+	<li>Show number of same origin tabs in the toolbar button badge</li>
+	<li>Close all same origin tabs, leaving the oldest ones open</li>
 </ul>
+
 
 <b>Notes:</b>
 <ol>
