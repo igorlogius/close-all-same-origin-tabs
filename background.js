@@ -1,5 +1,10 @@
 /* global browser */
 
+/*
+const manifest = browser.runtime.getManifest();
+const extname = manifest.name;
+*/
+
 const tabdata = new Map();
 let delayed_updateBA_timerId = null;
 let dupTabIds = [];
@@ -72,16 +77,14 @@ function delDups() {
   }
 }
 
-// update browserAction 
+// update browserAction
 function updateBA() {
   dupTabIds = getDups();
   if (dupTabIds.length > 0) {
     browser.browserAction.enable();
     browser.browserAction.setBadgeText({ text: "" + dupTabIds.length });
-    browser.browserAction.setTitle({ title: "Close Duplicates" });
   } else {
     browser.browserAction.disable();
-    browser.browserAction.setTitle({ title: "" });
     browser.browserAction.setBadgeText({ text: "" });
   }
 }
@@ -91,7 +94,6 @@ function updateBA() {
   browser.browserAction.disable();
   browser.browserAction.setBadgeText({ text: "" });
   browser.browserAction.setBadgeBackgroundColor({ color: "orange" });
-  browser.browserAction.setTitle({ title: "" });
 
   (
     await browser.tabs.query({
@@ -101,7 +103,7 @@ function updateBA() {
   ).forEach((t) => {
     tabdata.set(t.id, {
       status: t.status,
-      origin: (new URL(t.url)).origin,
+      origin: new URL(t.url).origin,
       cs: t.cookieStoreId,
       created: Date.now(),
     });
@@ -120,7 +122,7 @@ browser.tabs.onUpdated.addListener(
         tmp.status = changeInfo.status;
       }
       if (typeof changeInfo.url === "string") {
-        tmp.origin = (new URL(changeInfo.url)).origin;
+        tmp.origin = new URL(changeInfo.url).origin;
       }
       tabdata.set(t.id, tmp);
       delayed_updateBA();
@@ -132,7 +134,7 @@ browser.tabs.onUpdated.addListener(
 // update cache
 browser.tabs.onCreated.addListener((t) => {
   tabdata.set(t.id, {
-    oirgin: (new URL(t.url)).origin,
+    origin: new URL(t.url).origin,
     cs: t.cookieStoreId,
     created: Date.now(),
     status: "created",
