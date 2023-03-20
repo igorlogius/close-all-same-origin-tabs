@@ -1,0 +1,18 @@
+{
+  "author": "igorlogius",
+  "homepage_url": "https://github.com/igorlogius/close-all-same-origin-tabs",
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "browser_action": {},
+  "icons": {
+    "128": "icon.png"
+  },
+  "manifest_version": 2,
+  "name": "Close All Same Origin Tabs",
+  "permissions": [
+    "cookies",
+    "tabs"
+  ],
+  "version": "1.0.0"
+}
