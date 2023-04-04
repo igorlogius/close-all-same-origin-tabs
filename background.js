@@ -49,7 +49,7 @@ function getDups() {
             v.status !== "loading" // exclude loading tabs
         )
         .sort(([, av], [, bv]) => {
-          return av.created - bv.created;
+          return bv.created - av.created;
         })
         .map(([k]) => k);
 
@@ -157,5 +157,13 @@ browser.browserAction.onClicked.addListener(() => {
     delDups();
     browser.browserAction.disable();
     browser.browserAction.setBadgeText({ text: "" });
+  }
+});
+
+browser.tabs.onActivated.addListener((activeInfo) => {
+  if (tabdata.has(activeInfo.tabId)) {
+    const tmp = tabdata.get(activeInfo.tabId);
+    tmp.created = Date.now();
+    tabdata.set(activeInfo.tabId, tmp);
   }
 });
